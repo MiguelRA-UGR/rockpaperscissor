@@ -4,8 +4,8 @@ function getComputerChoice(options) {
 	return options[Math.floor(Math.random()*3)];
 }
 
-
 function game(){
+    
     let user_wins = 0;
     let computer_wins = 0;
     for(i=0; i<5 && Math.abs(user_wins - computer_wins) < 3;i++){
