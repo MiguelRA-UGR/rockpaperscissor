@@ -8,6 +8,7 @@ body{
 
 
 .game_title{
+    text-align: center;
     background-color: white;
     border-radius: 0.5cm;
     border-color: black;
