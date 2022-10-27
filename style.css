@@ -79,7 +79,7 @@ body{
 
 .player-info{
     display: flex;
-
+    
     border-radius: 0.5cm;
     border-color: black;
     border-style:groove;
