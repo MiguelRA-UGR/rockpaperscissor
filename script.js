@@ -1,88 +1,164 @@
 let options = ["ROCK","PAPER","SCISSORS"];
 
+const rockBtn = document.getElementById("rock");
+const paperBtn = document.getElementById("paper");
+const scissorBtn = document.getElementById("scissors");
+const resultText = document.getElementById("result-text");
+const userImg = document.getElementById("user-img");
+const computerImg = document.getElementById("computer-img");
+const startBtn = document.getElementById("start_game");
+
+const usertext = document.getElementById("user-text");
+const computertext = document.getElementById("computer-text");
+
+let user_wins = 0;
+let computer_wins = 0;
+
+
+rockBtn.addEventListener("click", ()=>{
+    playRound("ROCK");
+});
+
+paperBtn.addEventListener("click", ()=>{
+    playRound("PAPER");
+});
+
+scissorBtn.addEventListener("click", ()=>{
+    playRound("SCISSORS");
+});
+
+startBtn.addEventListener("click", ()=>{
+    start_game();
+});
+
+function start_game(){
+
+    user_wins=0;
+    computer_wins=0;
+
+    rockBtn.style.visibility='visible';
+    paperBtn.style.visibility='visible';
+    scissorBtn.style.visibility='visible';
+    startBtn.style.visibility='hidden';
+
+    usertext.innerHTML = "Welcome!";
+    usertext.innerHTML = "User: " + user_wins;
+    computertext.innerHTML = "Computer: " + computer_wins;
+}
+
 function getComputerChoice(options) {
 	return options[Math.floor(Math.random()*3)];
 }
 
-function game(){
+function roundResult(computer_choice,user_choice){
     
-    let user_wins = 0;
-    let computer_wins = 0;
-    for(i=0; i<5 && Math.abs(user_wins - computer_wins) < 3;i++){
-    
-        user_choice = prompt("Write your choice").toUpperCase();
-        
-        while(user_choice != "SCISSORS" && user_choice != "PAPER" && user_choice != "ROCK"){
-            window.alert("Write a valid option(Options: Rock, Paper,Scissors)");
-            user_choice = prompt("Write your choice").toUpperCase();
-        }
-        
-        computer_choice = getComputerChoice(options);
-        
-        window.alert("Your choice is " + user_choice + 
-        "\nComputer choice is " + computer_choice + "\n"); 
-    
-        //Computer wins
-        if (user_choice =="ROCK" && computer_choice=="PAPER"){
-            window.alert("Computer wrapped user's rock with his fancy paper");
-            computer_wins+=1;
-        }
-        else if(user_choice=="SCISSORS" && computer_choice=="ROCK"){
-            window.alert("Computer smashed your scissors with his ROCK");
-            computer_wins+=1;
-        }
-        else if(user_choice=="PAPER" && computer_choice=="SCISSORS"){
-            window.alert("The computer cut your paper into a thousand little pieces");
-            computer_wins+=1;
-        }
-    
-        //User wins
-        else if(user_choice=="ROCK" && computer_choice=="SCISSORS"){
-            user_wins++;
-            window.alert("Wow. Those scissors have seen better days. User wins");
-        }
-    
-        else if(user_choice=="SCISSORS" && computer_choice=="PAPER"){
-            user_wins++;
-            window.alert("Oh...That scissors look really sharp. User wins");
-        }
-    
-        else if(user_choice=="PAPER" && computer_choice=="ROCK"){
-            user_wins++;
-            window.alert("That paper wrapper suits the rock really well. User wins");
-        }
-    
-        //Draws
-        else if(user_choice=="ROCK" && computer_choice=="ROCK"){
-            window.alert("Boom! Rock against Rock, nobody wins");
-        }
-    
-        else if(user_choice=="PAPER" && computer_choice=="PAPER"){
-            window.alert("Look! It looks like those papers are hugging. What a beatiful draw");
-        }
-    
-        else if(user_choice=="SCISSORS" && computer_choice=="SCISSORS"){
-            window.alert("Metal doesn't cut metal. Well, maybe it does, but not this time. TIE!");
-        }
-    
-        window.alert("\nComputer Points:" + computer_wins + 
-        "\nUser Points: " + user_wins + "\n");   
-    }
-    
-    if(computer_wins>user_wins){
-        window.alert("Beep, beep, Computer sent you to sleep");
-    }
-    else if(computer_wins<user_wins){
-        window.alert("It seems like...YOU ARE THE WINNER!\nCongratulations on beating the dumbest Computer ever");
-    }
-    else{
-        window.alert("Nobody wins today...or everybody does?. I don't know, we have a draw");
-    }
-}
-game();
+    let computer_win =false;
+    let user_win =false;
 
-window.alert("Final results: \nComputer Points:" + computer_wins + 
-"\nUser Points: " + user_wins);
+    if (user_choice == computer_choice){
+        resultText.innerHTML = "Tie";
+    }
+    else if(user_choice=="ROCK"){
+
+        if(computer_choice=="PAPER"){
+            computer_win=true;  
+        }
+        if(computer_choice=="SCISSORS"){
+            user_win=true;
+        }
+    }
+
+    else if(user_choice=="PAPER"){
+        if(computer_choice=="SCISSORS"){
+            computer_win=true;
+
+        }
+            
+        if(computer_choice=="ROCK"){
+            user_win=true;
+        }
+    }
+
+    else if(user_choice=="SCISSORS"){
+        if(computer_choice=="ROCK"){
+            computer_win=true;
+        }
+        if(computer_choice=="PAPER"){
+            user_win=true;
+        }
+    }
+   
+    if(computer_win){
+        computer_wins+=1;
+        resultText.innerHTML = "You loose";
+        computertext.innerHTML = "Computer: " + computer_wins; 
+    }
+
+    else if(user_win){
+        user_wins+=1;
+        resultText.innerHTML = "You win";
+        usertext.innerHTML = "User: " + user_wins;
+    }
+   
+}
+
+function playRound(user_choice){
+    
+    computer_choice = getComputerChoice(options);
+     
+    switch(user_choice){
+        case "ROCK":
+            userImg.src = "images/rock.png";
+        break;
+
+        case "PAPER":
+            userImg.src = "images/paper.png";
+        break;
+
+        case "SCISSORS":
+            userImg.src = "images/scissor.png";
+        break;
+    }
+
+    switch(computer_choice){
+        case "ROCK":
+            computerImg.src = "images/rock.png";
+        break;
+
+        case "PAPER":
+            computerImg.src = "images/paper.png";
+        break;
+
+        case "SCISSORS":
+            computerImg.src = "images/scissor.png";
+        break;
+    }
+
+    
+    computerImg
+
+    if(user_wins < 3 && computer_wins < 3){
+        roundResult(computer_choice,user_choice);
+    }
+    
+    else{
+
+        if(user_wins==3)
+            resultText.innerHTML = "Winner:User";
+        else
+            resultText.innerHTML = "Winner:Computer";
+
+        startBtn.style.visibility='visible';
+
+        rockBtn.style.visibility='hidden';
+        paperBtn.style.visibility='hidden';
+        scissorBtn.style.visibility='hidden';
+        
+    }
+    
+}
+
+
 
 
 
