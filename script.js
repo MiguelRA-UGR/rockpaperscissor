@@ -137,13 +137,13 @@ function playRound(user_choice){
     
     computerImg
 
-    if(user_wins < 3 && computer_wins < 3){
+    if(user_wins < 5 && computer_wins < 5){
         roundResult(computer_choice,user_choice);
     }
     
     else{
 
-        if(user_wins==3)
+        if(user_wins==5)
             resultText.innerHTML = "Winner:User";
         else
             resultText.innerHTML = "Winner:Computer";
